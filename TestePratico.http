@@ -1,0 +1,6 @@
+@TestePratico_HostAddress = http://localhost:5253
+
+GET {{TestePratico_HostAddress}}/TestePratico/
+Accept: application/json
+
+###
