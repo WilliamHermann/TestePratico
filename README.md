@@ -29,10 +29,11 @@
 
 ### Acessando a Documentação (Swagger)
 
-Com a aplicação em execução, acesse a interface do Swagger para testar os endpoints:
+Com a aplicação em execução, acesse a interface do Swagger para testar os endpoints
 
 ### Exemplo de JSON para cadastro
 
+```json
 {
   "descricao": "Carro econômico, pneus novos",
   "marca": "Fiat",
