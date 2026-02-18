@@ -14,7 +14,7 @@
 
 2.  Navegar até a pasta do projeto principal:
     ```bash
-    cd TestePratico/TestePratico.API
+    cd TestePratico
     ```
 
 3.  Compilar projeto e dependências
@@ -26,6 +26,9 @@
     ```bash
     dotnet run
     ```
+### OU
+
+Executar via interface do visual studio
 
 ### Acessando a Documentação (Swagger)
 

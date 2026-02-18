@@ -23,7 +23,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseInMemoryDatabase("TestePraticoDb"));
 
-builder.Services.AddValidatorsFromAssemblyContaining<VeiculoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CadastrarVeiculoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AtualizarVeiculoValidator>();
 
 builder.Services.AddScoped<IVeiculoRepository ,VeiculoRepository>();
 builder.Services.AddScoped<VeiculoService>();

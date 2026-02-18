@@ -1,4 +1,5 @@
-﻿using TestePratico.WebApi.Application.Interfaces;
+﻿using TestePratico.WebApi.Application.DTOS;
+using TestePratico.WebApi.Application.Interfaces;
 using TestePratico.WebApi.Domain.Entities;
 
 namespace TestePratico.WebApi.Application.Services
@@ -12,12 +13,20 @@ namespace TestePratico.WebApi.Application.Services
             _veiculoRepository = veiculoRepository;
         }
 
-        public async Task<Veiculo> CriarAsync(Veiculo veiculo)
+        public async Task<Veiculo> CriarAsync(CadastrarVeiculoDTO cadastrarVeiculoDTO)
         {
-            return await _veiculoRepository.CriarAsync(veiculo);
+            var novoVeiculo = new Veiculo
+            {
+                Descricao = cadastrarVeiculoDTO.Descricao,
+                Marca = cadastrarVeiculoDTO.Marca,
+                Modelo = cadastrarVeiculoDTO.Modelo,
+                Valor = cadastrarVeiculoDTO.Valor
+            };
+
+            return await _veiculoRepository.CriarAsync(novoVeiculo);
         }
 
-        public async Task AtualizarAsync(Veiculo veiculoExistente, Veiculo dadosAtualizadoVeiculo)
+        public async Task AtualizarAsync(Veiculo veiculoExistente, AtualizarVeiculoDTO dadosAtualizadoVeiculo)
         {
             veiculoExistente.Descricao = dadosAtualizadoVeiculo.Descricao;
             veiculoExistente.Marca = dadosAtualizadoVeiculo.Marca;

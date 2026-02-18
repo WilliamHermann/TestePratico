@@ -10,34 +10,28 @@ namespace TestePratico.WebApi.Controllers
     [Route("api/v1/veiculos")]
     public class VeiculosController : ControllerBase
     {
-        private readonly IValidator<Veiculo> _validator;
+        private readonly IValidator<CadastrarVeiculoDTO> _cadastrarValidator;
+        private readonly IValidator<AtualizarVeiculoDTO> _atualizarValidator;
         private readonly VeiculoService _veiculoService;
         
-        public VeiculosController(IValidator<Veiculo> validator,VeiculoService veiculoService)
+        public VeiculosController(IValidator<CadastrarVeiculoDTO> cadastrarValidator, IValidator<AtualizarVeiculoDTO> atualizarValidator, VeiculoService veiculoService)
         {
-            _validator = validator;
+            _cadastrarValidator = cadastrarValidator;
+            _atualizarValidator = atualizarValidator;
             _veiculoService = veiculoService;
         }
 
         [HttpPost]
         public async Task<ActionResult<Veiculo>> Cadastrar([FromBody]CadastrarVeiculoDTO cadastrarVeiculoDTO)
         {
-            var novoVeiculo = new Veiculo
-            {
-                Descricao = cadastrarVeiculoDTO.Descricao,
-                Marca = cadastrarVeiculoDTO.Marca,
-                Modelo = cadastrarVeiculoDTO.Modelo,
-                Valor = cadastrarVeiculoDTO.Valor
-            };
-
-            var resultado = await _validator.ValidateAsync(novoVeiculo);
+            var resultado = await _cadastrarValidator.ValidateAsync(cadastrarVeiculoDTO);
 
             if (resultado.IsValid is false)
             {
                 return BadRequest(resultado.Errors.Select(e => e.ErrorMessage));
             }
 
-            var veiculoCriado = await _veiculoService.CriarAsync(novoVeiculo);
+            var veiculoCriado = await _veiculoService.CriarAsync(cadastrarVeiculoDTO);
 
             return CreatedAtAction(nameof(ObterVeiculoPorId), new { id = veiculoCriado.Id }, veiculoCriado);
         }
@@ -45,15 +39,7 @@ namespace TestePratico.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarVeiculoDTO atualizarVeiculoDTO)
         {
-            var dadosAtualizadoVeiculo = new Veiculo
-            {
-                Descricao = atualizarVeiculoDTO.Descricao,
-                Marca = atualizarVeiculoDTO.Marca,
-                Modelo = atualizarVeiculoDTO.Modelo,
-                Valor = atualizarVeiculoDTO.Valor
-            };
-
-            var resultado = await _validator.ValidateAsync(dadosAtualizadoVeiculo);
+            var resultado = await _atualizarValidator.ValidateAsync(atualizarVeiculoDTO);
 
             if (resultado.IsValid is false)
             {
@@ -67,7 +53,7 @@ namespace TestePratico.WebApi.Controllers
                 return NotFound();
             }
 
-            await _veiculoService.AtualizarAsync(veiculoExistente, dadosAtualizadoVeiculo);
+            await _veiculoService.AtualizarAsync(veiculoExistente, atualizarVeiculoDTO);
 
             return Ok(veiculoExistente);
         }
