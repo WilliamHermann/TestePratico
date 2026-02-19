@@ -4,7 +4,7 @@ using TestePratico.WebApi.Domain.Entities;
 
 namespace TestePratico.WebApi.Application.Services
 {
-    public class VeiculoService
+    public class VeiculoService : IVeiculoService
     {
         private readonly IVeiculoRepository _veiculoRepository;
 

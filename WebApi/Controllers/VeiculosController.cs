@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using TestePratico.WebApi.Application.DTOS;
-using TestePratico.WebApi.Application.Services;
+using TestePratico.WebApi.Application.Interfaces;
 using TestePratico.WebApi.Domain.Entities;
 
 namespace TestePratico.WebApi.Controllers
@@ -12,9 +12,9 @@ namespace TestePratico.WebApi.Controllers
     {
         private readonly IValidator<CadastrarVeiculoDTO> _cadastrarValidator;
         private readonly IValidator<AtualizarVeiculoDTO> _atualizarValidator;
-        private readonly VeiculoService _veiculoService;
+        private readonly IVeiculoService _veiculoService;
         
-        public VeiculosController(IValidator<CadastrarVeiculoDTO> cadastrarValidator, IValidator<AtualizarVeiculoDTO> atualizarValidator, VeiculoService veiculoService)
+        public VeiculosController(IValidator<CadastrarVeiculoDTO> cadastrarValidator, IValidator<AtualizarVeiculoDTO> atualizarValidator, IVeiculoService veiculoService)
         {
             _cadastrarValidator = cadastrarValidator;
             _atualizarValidator = atualizarValidator;

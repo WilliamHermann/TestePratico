@@ -26,8 +26,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddValidatorsFromAssemblyContaining<CadastrarVeiculoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<AtualizarVeiculoValidator>();
 
-builder.Services.AddScoped<IVeiculoRepository ,VeiculoRepository>();
-builder.Services.AddScoped<VeiculoService>();
+builder.Services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 
 var app = builder.Build();
 
